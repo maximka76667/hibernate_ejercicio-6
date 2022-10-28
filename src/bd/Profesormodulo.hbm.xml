@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 19 oct. 2022 13:11:23 by Hibernate Tools 6.0.2.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class catalog="hibernate1" name="bd.Profesormodulo" optimistic-lock="none" table="profesormodulo">
+        <composite-id class="bd.ProfesormoduloId" name="id">
+            <key-property name="idModulo" type="int">
+                <column name="IdModulo"/>
+            </key-property>
+            <key-property name="idProfesor" type="int">
+                <column name="idProfesor"/>
+            </key-property>
+        </composite-id>
+        <many-to-one class="bd.Profesor" fetch="select" insert="false" name="profesor" update="false">
+            <column name="idProfesor" not-null="true"/>
+        </many-to-one>
+        <many-to-one class="bd.Modulo" fetch="select" insert="false" name="modulo" update="false">
+            <column name="IdModulo" not-null="true"/>
+        </many-to-one>
+        <property name="idx" type="java.lang.Integer">
+            <column name="Idx"/>
+        </property>
+    </class>
+</hibernate-mapping>

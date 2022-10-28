@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 19 oct. 2022 13:11:23 by Hibernate Tools 6.0.2.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class catalog="hibernate1" name="bd.Profesor" optimistic-lock="none" table="profesor">
+        <id name="id" type="int">
+            <column name="Id"/>
+            <generator class="assigned"/>
+        </id>
+        <property name="nombre" type="string">
+            <column length="255" name="nombre"/>
+        </property>
+        <property name="ape1" type="string">
+            <column length="255" name="ape1"/>
+        </property>
+        <property name="ape2" type="string">
+            <column length="255" name="ape2"/>
+        </property>
+        <property name="tipoFuncionario" type="java.lang.Integer">
+            <column name="tipoFuncionario"/>
+        </property>
+        <one-to-one class="bd.Direccion" name="direccion"/>
+        <set fetch="select" inverse="true" lazy="true" name="profesormodulos" table="profesormodulo">
+            <key>
+                <column name="idProfesor" not-null="true"/>
+            </key>
+            <one-to-many class="bd.Profesormodulo"/>
+        </set>
+        <set fetch="select" inverse="true" lazy="true" name="correoelectronicos" table="correoelectronico">
+            <key>
+                <column name="IdProfesor"/>
+            </key>
+            <one-to-many class="bd.Correoelectronico"/>
+        </set>
+    </class>
+</hibernate-mapping>

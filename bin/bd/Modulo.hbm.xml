@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 19 oct. 2022 13:11:23 by Hibernate Tools 6.0.2.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class catalog="hibernate1" name="bd.Modulo" optimistic-lock="none" table="modulo">
+        <id name="idModulo" type="int">
+            <column name="IdModulo"/>
+            <generator class="assigned"/>
+        </id>
+        <many-to-one class="bd.Cicloformativo" fetch="select" name="cicloformativo">
+            <column name="IdCiclo"/>
+        </many-to-one>
+        <property name="nombre" type="string">
+            <column length="255" name="nombre"/>
+        </property>
+        <property name="numeroHoras" type="java.lang.Integer">
+            <column name="NumeroHoras"/>
+        </property>
+        <set fetch="select" inverse="true" lazy="true" name="profesormodulos" table="profesormodulo">
+            <key>
+                <column name="IdModulo" not-null="true"/>
+            </key>
+            <one-to-many class="bd.Profesormodulo"/>
+        </set>
+    </class>
+</hibernate-mapping>
