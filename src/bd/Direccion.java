@@ -87,4 +87,14 @@ public class Direccion implements java.io.Serializable {
 		this.provincia = provincia;
 	}
 
+	public String toStringSinProfesor() {
+		return calle + ", " + numero + ", " + poblacion + ", " + provincia + " " + municipios;
+	}
+
+	@Override
+	public String toString() {
+		return calle + ", " + numero + ", " + poblacion + ", " + provincia + " " + municipios + " \nProfesor: \n"
+				+ profesor.toStringSinDireccion();
+	}
+
 }

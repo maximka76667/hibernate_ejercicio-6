@@ -13,7 +13,7 @@ public class Modulo implements java.io.Serializable {
 	private Cicloformativo cicloformativo;
 	private String nombre;
 	private Integer numeroHoras;
-	private Set profesormodulos = new HashSet(0);
+	private Set<Profesormodulo> profesormodulos = new HashSet<Profesormodulo>(0);
 
 	public Modulo() {
 	}
@@ -23,7 +23,7 @@ public class Modulo implements java.io.Serializable {
 	}
 
 	public Modulo(int idModulo, Cicloformativo cicloformativo, String nombre, Integer numeroHoras,
-			Set profesormodulos) {
+			Set<Profesormodulo> profesormodulos) {
 		this.idModulo = idModulo;
 		this.cicloformativo = cicloformativo;
 		this.nombre = nombre;
@@ -63,12 +63,17 @@ public class Modulo implements java.io.Serializable {
 		this.numeroHoras = numeroHoras;
 	}
 
-	public Set getProfesormodulos() {
+	public Set<Profesormodulo> getProfesormodulos() {
 		return this.profesormodulos;
 	}
 
-	public void setProfesormodulos(Set profesormodulos) {
+	public void setProfesormodulos(Set<Profesormodulo> profesormodulos) {
 		this.profesormodulos = profesormodulos;
+	}
+
+	@Override
+	public String toString() {
+		return "\nM" + idModulo + " " + nombre + ", " + numeroHoras + " horas";
 	}
 
 }

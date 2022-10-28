@@ -13,12 +13,12 @@ public class Municipios implements java.io.Serializable {
 	private String codProvincia;
 	private String codMunicipio;
 	private String nombreMunicipio;
-	private Set direccions = new HashSet(0);
+	private Set<Direccion> direccions = new HashSet<Direccion>(0);
 
 	public Municipios() {
 	}
 
-	public Municipios(String codProvincia, String codMunicipio, String nombreMunicipio, Set direccions) {
+	public Municipios(String codProvincia, String codMunicipio, String nombreMunicipio, Set<Direccion> direccions) {
 		this.codProvincia = codProvincia;
 		this.codMunicipio = codMunicipio;
 		this.nombreMunicipio = nombreMunicipio;
@@ -61,8 +61,17 @@ public class Municipios implements java.io.Serializable {
 		return this.direccions;
 	}
 
-	public void setDireccions(Set direccions) {
+	public void setDireccions(Set<Direccion> direccions) {
 		this.direccions = direccions;
+	}
+
+	@Override
+	public String toString() {
+		return nombreMunicipio;
+	}
+
+	public String toStringConProfesor() {
+		return "Municipio: " + idMunicipio + " " + nombreMunicipio + " " + codMunicipio + direccions;
 	}
 
 }

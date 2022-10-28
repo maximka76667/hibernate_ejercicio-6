@@ -101,4 +101,21 @@ public class Profesor implements java.io.Serializable {
 		this.correoelectronicos = correoelectronicos;
 	}
 
+	@Override
+	public String toString() {
+		return "\nP" + id + " " + nombre + " " + ape1 + " " + ape2 + ", " + tipoFuncionario + ", \nDireccion: "
+				+ direccion.toStringSinProfesor() + "\n" + "Correos electronicos:" + correoelectronicos;
+	}
+
+	public String toStringSinDireccion() {
+		return "P" + id + " " + nombre + " " + ape1 + " " + ape2 + ", " + tipoFuncionario + "\n"
+				+ "Correos electronicos:" + correoelectronicos;
+	}
+
+	public String toStringConModulos() {
+		return "P" + id + " " + nombre + " " + ape1 + " " + ape2 + ", " + tipoFuncionario + ", \nDireccion: "
+				+ direccion.toStringSinProfesor() + "\nModulos: " + profesormodulos + "\n" + "Correos electronicos:"
+				+ correoelectronicos;
+	}
+
 }

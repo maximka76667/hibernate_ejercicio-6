@@ -53,4 +53,9 @@ public class ProfesormoduloId implements java.io.Serializable {
 		return result;
 	}
 
+	@Override
+	public String toString() {
+		return "ProfesormoduloId [idModulo=" + idModulo + ", idProfesor=" + idProfesor + "]";
+	}
+
 }

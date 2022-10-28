@@ -59,4 +59,9 @@ public class Profesormodulo implements java.io.Serializable {
 		this.idx = idx;
 	}
 
+	@Override
+	public String toString() {
+		return "\n" + modulo.toString();
+	}
+
 }

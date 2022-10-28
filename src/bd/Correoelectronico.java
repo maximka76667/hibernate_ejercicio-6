@@ -57,4 +57,9 @@ public class Correoelectronico implements java.io.Serializable {
 		this.idx = idx;
 	}
 
+	@Override
+	public String toString() {
+		return "\n" + direccionCorreo;
+	}
+
 }
