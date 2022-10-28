@@ -37,6 +37,14 @@ public class Profesor implements java.io.Serializable {
 		this.correoelectronicos = correoelectronicos;
 	}
 
+	public Profesor(int id, String nombre, String ape1, String ape2, Integer tipoFuncionario) {
+		this.id = id;
+		this.nombre = nombre;
+		this.ape1 = ape1;
+		this.ape2 = ape2;
+		this.tipoFuncionario = tipoFuncionario;
+	}
+
 	public int getId() {
 		return this.id;
 	}

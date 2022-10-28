@@ -3,18 +3,23 @@ package main;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
 import javax.persistence.TypedQuery;
 
 import org.hibernate.Session;
 
 import bd.Cicloformativo;
+import bd.Correoelectronico;
+import bd.Direccion;
 import bd.Modulo;
 import bd.Municipios;
 import bd.Profesor;
 import bd.Profesormodulo;
+import bd.ProfesormoduloId;
 
 public class Menu {
 
@@ -47,7 +52,7 @@ public class Menu {
 //			System.out.println("10. Mostrar todos los empleados");
 //
 //			int option = askInteger("Elige opción del menu: ");
-		int option = 5;
+		int option = 7;
 		switch (option) {
 		case 1:
 			showCicloFormativo();
@@ -70,11 +75,11 @@ public class Menu {
 			break;
 
 		case 6:
-//				deleteDepartamento();
+			addProfesor();
 			break;
 
 		case 7:
-//				deleteEmpleado();
+			addModulo();
 			break;
 
 		case 8:
@@ -99,7 +104,10 @@ public class Menu {
 
 	public int askInteger(String message) {
 		System.out.print(message);
-		return entrada.nextInt();
+		int number = entrada.nextInt();
+		entrada.nextLine();
+		return number;
+
 	}
 
 	public String askString(String message) {
@@ -209,8 +217,120 @@ public class Menu {
 		List<Modulo> modulos = getQueryList("From Modulo", Modulo.class);
 		System.out.println(modulos);
 	}
-	
-//	public Profesor addProfesor() {
-//		
-//	}
+
+	public Profesor addProfesor() {
+		int id = askInteger("Id: ");
+		String nombre = askString("Nombre: ");
+		String ape1 = askString("Primer apellido: ");
+		String ape2 = askString("Segundo apellido: ");
+		Integer tipoFuncionario = askInteger("Tipo funcionario: ");
+
+		String calle = askString("Calle: ");
+		int numero = askInteger("Numero: ");
+		String provincia = askString("Provincia: ");
+
+		int idMunicipio = askInteger("Id municipio: ");
+		Municipios municipio = session.get(Municipios.class, idMunicipio);
+
+		Profesor profesor = new Profesor(id, nombre, ape1, ape2, tipoFuncionario);
+
+		// Direccion
+		Direccion direccion = new Direccion(municipio, profesor, calle, numero, provincia, provincia);
+		profesor.setDireccion(direccion);
+
+		// Modulos
+		Set<Profesormodulo> profesormodulos = new HashSet<Profesormodulo>();
+
+		while (true) {
+			int idModulo = askInteger("Id modulo: ");
+			if (idModulo == -1) {
+				break;
+			}
+
+			Modulo modulo = session.get(Modulo.class, idModulo);
+			ProfesormoduloId profesormoduloId = new ProfesormoduloId(idModulo, id);
+			Profesormodulo pm = new Profesormodulo(profesormoduloId, profesor, modulo);
+
+			profesormodulos.add(pm);
+		}
+
+		profesor.setProfesormodulos(profesormodulos);
+
+		// Correo electronicos
+		Set<Correoelectronico> correoselectronicos = new HashSet<Correoelectronico>();
+
+		while (true) {
+			String direccionCorreo = askString("Correo electronico (cadena vacia para finalizar): ");
+
+			if (direccionCorreo.equals("")) {
+				break;
+			}
+
+			int idCorreo = askInteger("Id correo: ");
+
+			Correoelectronico correoelectronico = new Correoelectronico(idCorreo, profesor, direccionCorreo);
+			correoselectronicos.add(correoelectronico);
+		}
+
+		profesor.setCorreoelectronicos(correoselectronicos);
+
+		// Transactions
+		handleTransaction(profesor, "s");
+		handleTransaction(direccion, "s");
+		for (Profesormodulo profesormodulo : profesormodulos) {
+			handleTransaction(profesormodulo, "s");
+		}
+		for (Correoelectronico correoelectronico : correoselectronicos) {
+			handleTransaction(correoelectronico, "s");
+		}
+
+		return profesor;
+	}
+
+	public Modulo addModulo() {
+		int idModulo = askInteger("Id modulo: ");
+		int idCiclo = askInteger("Id ciclo: ");
+
+		Cicloformativo cicloformativo = session.get(Cicloformativo.class, idCiclo);
+
+		String nombre = askString("Nombre modulo: ");
+		int numeroHoras = askInteger("Numero horas: ");
+
+		Modulo modulo = new Modulo(idModulo, cicloformativo, nombre, numeroHoras);
+
+		// Profesores
+		Set<Profesormodulo> profesormodulos = new HashSet<Profesormodulo>();
+
+		while (true) {
+			int idProfesor = askInteger("Id profesor: ");
+			if (idProfesor == -1) {
+				break;
+			}
+
+			Profesor profesor = session.get(Profesor.class, idProfesor);
+			ProfesormoduloId profesormoduloId = new ProfesormoduloId(idModulo, idProfesor);
+			Profesormodulo pm = new Profesormodulo(profesormoduloId, profesor, modulo);
+
+			profesormodulos.add(pm);
+		}
+
+		modulo.setProfesormodulos(profesormodulos);
+
+		// Transactions
+		handleTransaction(modulo, "s");
+		for (Profesormodulo profesormodulo : profesormodulos) {
+			handleTransaction(profesormodulo, "s");
+		}
+
+		return modulo;
+	}
+
+	public Cicloformativo addCicloformativo() {
+		int idCiclo = askInteger("Id ciclo: ");
+		String nombreCiclo = askString("Nombre ciclo: ");
+		int numeroHoras = askInteger("Numero horas: ");
+
+		Cicloformativo ciclo = new Cicloformativo(idCiclo, nombreCiclo, numeroHoras);
+	}
+
 }

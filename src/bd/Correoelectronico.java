@@ -25,6 +25,13 @@ public class Correoelectronico implements java.io.Serializable {
 		this.idx = idx;
 	}
 
+	public Correoelectronico(int idCorreo, Profesor profesor, String direccionCorreo) {
+		super();
+		this.idCorreo = idCorreo;
+		this.profesor = profesor;
+		this.direccionCorreo = direccionCorreo;
+	}
+
 	public int getIdCorreo() {
 		return this.idCorreo;
 	}

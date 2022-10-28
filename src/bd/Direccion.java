@@ -31,6 +31,15 @@ public class Direccion implements java.io.Serializable {
 		this.provincia = provincia;
 	}
 
+	public Direccion(int id, Municipios municipios, String calle, Integer numero, String poblacion, String provincia) {
+		this.id = id;
+		this.municipios = municipios;
+		this.calle = calle;
+		this.numero = numero;
+		this.poblacion = poblacion;
+		this.provincia = provincia;
+	}
+
 	public int getId() {
 		return this.id;
 	}

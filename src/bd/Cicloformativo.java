@@ -21,6 +21,12 @@ public class Cicloformativo implements java.io.Serializable {
 		this.idCiclo = idCiclo;
 	}
 
+	public Cicloformativo(int idCiclo, String nombreCiclo, Integer horas) {
+		this.idCiclo = idCiclo;
+		this.nombreCiclo = nombreCiclo;
+		this.horas = horas;
+	}
+
 	public Cicloformativo(int idCiclo, String nombreCiclo, Integer horas, Set<Modulo> modulos) {
 		this.idCiclo = idCiclo;
 		this.nombreCiclo = nombreCiclo;

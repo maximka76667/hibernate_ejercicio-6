@@ -22,6 +22,13 @@ public class Modulo implements java.io.Serializable {
 		this.idModulo = idModulo;
 	}
 
+	public Modulo(int idModulo, Cicloformativo cicloformativo, String nombre, Integer numeroHoras) {
+		this.idModulo = idModulo;
+		this.cicloformativo = cicloformativo;
+		this.nombre = nombre;
+		this.numeroHoras = numeroHoras;
+	}
+
 	public Modulo(int idModulo, Cicloformativo cicloformativo, String nombre, Integer numeroHoras,
 			Set<Profesormodulo> profesormodulos) {
 		this.idModulo = idModulo;
