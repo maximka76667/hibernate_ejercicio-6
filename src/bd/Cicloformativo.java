@@ -68,7 +68,7 @@ public class Cicloformativo implements java.io.Serializable {
 
 	@Override
 	public String toString() {
-		return "CF" + idCiclo + " " + nombreCiclo + ", " + horas + "h";
+		return "CF" + idCiclo + " " + nombreCiclo + ", " + horas + " horas";
 	}
 
 }
